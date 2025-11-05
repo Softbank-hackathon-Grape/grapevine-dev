@@ -38,3 +38,4 @@ out/
 
 ### security ###
 application.yaml
+.env
