@@ -23,20 +23,6 @@ public abstract class BaseEntity {
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     protected LocalDateTime updatedAt;
-
-    @CreatedBy
-    @Column(name = "created_by", updatable = false)
-    protected Long createdBy;
-
-    @LastModifiedBy
-    @Column(name = "updated_by")
-    protected Long updatedBy;
-
-    @Column(name = "deleted_at")
-    protected LocalDateTime deletedAt;
-
-    @Column(name = "deleted_by")
-    protected Long deletedBy;
 }
 
 
