@@ -1,4 +1,4 @@
-package global;
+package grape.grapevine.global;
 
 import lombok.Getter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
