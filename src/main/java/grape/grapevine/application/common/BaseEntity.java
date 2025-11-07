@@ -1,4 +1,4 @@
-package application.common;
+package grape.grapevine.application.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

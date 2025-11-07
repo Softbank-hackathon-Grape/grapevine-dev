@@ -1,6 +1,6 @@
-package global;
+package grape.grapevine.global;
 
-import static global.ErrorCode.SUCCESS;
+import static grape.grapevine.global.ErrorCode.SUCCESS;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
