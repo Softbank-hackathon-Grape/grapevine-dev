@@ -1,4 +1,4 @@
-package application.deploy;
+package grape.grapevine.application.deploy;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

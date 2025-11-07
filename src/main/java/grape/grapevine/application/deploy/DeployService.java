@@ -1,4 +1,4 @@
-package application.deploy;
+package grape.grapevine.application.deploy;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
