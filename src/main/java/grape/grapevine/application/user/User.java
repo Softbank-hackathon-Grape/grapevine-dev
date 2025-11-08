@@ -29,8 +29,8 @@ public class User extends BaseEntity {
     private Long userIdx;
 
     @NotNull
-    @Column(name = "id", nullable = false, columnDefinition = "VARCHAR(150)")
-    private String id;
+    @Column(name = "user_id", nullable = false, unique = true, columnDefinition = "VARCHAR(150)")
+    private String userId;
 
     @NotNull
     @Column(name = "pwd", nullable = false, columnDefinition = "VARCHAR(150)")

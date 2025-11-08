@@ -10,7 +10,7 @@ import lombok.Builder;
 @Schema(description = "배포 응답 DTO")
 public record DeployRes(
     Long id,
-    Long userIdx,
+    Long userId,
     DeployStatus deployStatus,
     String deployDesc,
     String deploySetting,

@@ -43,7 +43,6 @@ public class DeployService {
                 GithubClient.REF
         );
     }
-}
     public DeployRes getDeploy(long id) {
         Deploy deploy = deployRepository.findById(id)
             .orElseThrow(()-> new BusinessException(ErrorCode.NO_EXIST_VALUE, "DB에 배포 데이터가 존재하지 않습니다."));
