@@ -5,6 +5,9 @@ import grape.grapevine.application.deploy.dto.DispatchRes;
 import grape.grapevine.client.githubclient.GithubClient;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import grape.grapevine.application.deploy.dto.DeployRes;
+import grape.grapevine.global.BusinessException;
+import grape.grapevine.global.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class DeployService {
 
     private final GithubClient githubClient;
+    private final DeployRepository deployRepository;
 
     private static final String OWNER = "Softbank-hackathon-Grape";
     private static final String REPO = "deploy-project";
@@ -47,5 +51,19 @@ public class DeployService {
                 ZonedDateTime.now(ZoneId.of("UTC")),
                 REF
         );
+    }
+}
+    public DeployRes getDeploy(long id) {
+        Deploy deploy = deployRepository.findById(id)
+            .orElseThrow(()-> new BusinessException(ErrorCode.NO_EXIST_VALUE, "DB에 배포 데이터가 존재하지 않습니다."));
+
+        return DeployRes.from(deploy);
+    }
+
+    public String getDeployStatus(long id) {
+        Deploy deploy = deployRepository.findById(id)
+            .orElseThrow(()-> new BusinessException(ErrorCode.NO_EXIST_VALUE, "DB에 배포 데이터가 존재하지 않습니다."));
+
+        return deploy.getDeployStatus().getDescription();
     }
 }
