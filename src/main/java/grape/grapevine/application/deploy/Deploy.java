@@ -1,6 +1,7 @@
 package grape.grapevine.application.deploy;
 
 import grape.grapevine.application.common.BaseEntity;
+import grape.grapevine.application.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,9 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Builder
@@ -27,13 +26,13 @@ public class Deploy extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "deploy_id", nullable = false, columnDefinition = "BIGINT")
+    @Column(name = "deploy_idx", nullable = false, columnDefinition = "BIGINT")
     private Long id;
 
-//    @NotNull
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_idx", nullable = false)
-//    private User user;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_idx", nullable = false)
+    private User user;
 
     @NotNull
     @Column(name = "deploy_status", nullable = false, columnDefinition = "VARCHAR(50)")
