@@ -41,7 +41,7 @@ public class DeployController {
         DispatchRes response = deployService.triggerWorkflow(request);
         return ResponseEntity.ok(response);
     }
-}
+
     @Operation(summary = "배포 상세 조회 API", description = "배포 상세 조회 API 입니다.")
     @GetMapping("/{id}")
     public BaseResponse<DeployRes> getDeploy(@PathVariable("id") @NotNull Long id) {
