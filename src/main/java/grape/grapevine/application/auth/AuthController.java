@@ -2,6 +2,7 @@ package grape.grapevine.application.auth;
 
 import grape.grapevine.application.auth.dto.LoginReq;
 import grape.grapevine.application.auth.dto.LoginRes;
+import grape.grapevine.global.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,7 @@ public class AuthController {
   private final AuthService authService;
 
   @PostMapping("/login")
-  public LoginRes login(@RequestBody LoginReq req) {
-    return authService.login(req);
+  public BaseResponse<LoginRes> login(@RequestBody LoginReq req) {
+    return BaseResponse.success(authService.login(req));
   }
 }
