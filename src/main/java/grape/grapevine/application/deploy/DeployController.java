@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,10 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class DeployController {
     private final DeployService deployService;
 
-    @Operation(summary = "test API", description = "테스트 API 입니다.")
-    @GetMapping("/test")
-    public BaseResponse<String> test() {
-        return BaseResponse.success("test success");
+    @Operation(summary = "배포 시작 API", description = "배포 트리거 API 입니다.")
+    @PostMapping
+    public BaseResponse<String> deploy() {
+        return BaseResponse.success("success");
+    }
+
+    @Operation(summary = "배포 상태 조회 API", description = "배포 상태 조회 API 입니다.")
+    @GetMapping("/status")
+    public BaseResponse<String> getDeployStatus() {
+        return BaseResponse.success("success");
     }
 
 }
