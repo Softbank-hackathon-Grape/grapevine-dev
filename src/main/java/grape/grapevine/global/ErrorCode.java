@@ -25,6 +25,7 @@ public enum ErrorCode {
     EXTERNAL_API_ERROR(false, 2005, "외부 API 호출 중 오류가 발생했습니다."),
     UNKNOWN_ERROR(false, 2006, "알수 없는 에러가 발생했습니다."),
 
+
     /*서버, DB, s3 3000*/
     DATABASE_ERROR(false, 3000, "DB에 문제가 발생했습니다."),
     NO_EXIST_VALUE(false, 3001, "DB에 데이터가 존재하지 않습니다."),
@@ -34,7 +35,10 @@ public enum ErrorCode {
     MAX_UPLOAD_SIZE_EXCEEDED(false, 3005, "파일 사이즈는 최대 10MB 까지 업로드 할 수 있습니다.",
         MaxUploadSizeExceededException.class
     ),
-    S3_UPLOAD_FAILED(false, 3006, "S3 업로드 중 알 수 없는 예외 발생");
+    S3_UPLOAD_FAILED(false, 3006, "S3 업로드 중 알 수 없는 예외 발생"),
+
+    /*회원, 보안 4000*/
+    LOGIN_FAIL(false, 4000, "로그인에 실패했습니다.");
 
     private final boolean isSuccess;
     private final int code;

@@ -37,9 +37,8 @@ public class DeployController {
                     content = @Content(schema = @Schema(implementation = DispatchRes.class)))
     })
     @PostMapping("/dispatch")
-    public ResponseEntity<DispatchRes> dispatchWorkflow(@RequestBody DispatchReq request) {
-        DispatchRes response = deployService.triggerWorkflow(request);
-        return ResponseEntity.ok(response);
+    public BaseResponse<DispatchRes> dispatchWorkflow(@RequestBody DispatchReq request) {
+        return BaseResponse.success(deployService.triggerWorkflow(request));
     }
 
     @Operation(summary = "배포 상세 조회 API", description = "배포 상세 조회 API 입니다.")
