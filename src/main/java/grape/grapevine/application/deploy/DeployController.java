@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Deploy", description = "배포 관련 API")
 @RestController
-@RequestMapping("/api/github")
+@RequestMapping("/api/deploy")
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "deploy", description = "배포 관련 API")
