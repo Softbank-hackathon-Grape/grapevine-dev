@@ -10,7 +10,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
-public class GithubClient extends ApiClient {
+public class GithubApiClient extends ApiClient {
 
     private final String token;
     private final String baseUrl;
@@ -20,7 +20,7 @@ public class GithubClient extends ApiClient {
     public static final String WORKFLOW_ID = "deploy.yml";
     public static final String REF = "main";
 
-    public GithubClient(@Qualifier("GithubRestClient") RestClient restClient,
+    public GithubApiClient(@Qualifier("GithubRestClient") RestClient restClient,
                         @Value("${github.token}") String token,
                         @Value("${github.base-url:https://api.github.com}") String baseUrl) {
         super(restClient);

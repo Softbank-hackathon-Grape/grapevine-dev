@@ -2,7 +2,7 @@ package grape.grapevine.application.deploy;
 
 import grape.grapevine.application.deploy.dto.DispatchReq;
 import grape.grapevine.application.deploy.dto.DispatchRes;
-import grape.grapevine.client.githubclient.GithubClient;
+import grape.grapevine.client.githubclient.GithubApiClient;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import grape.grapevine.application.deploy.dto.DeployRes;
@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DeployService {
 
-    private final GithubClient githubClient;
+    private final GithubApiClient githubApiClient;
     private final DeployRepository deployRepository;
 
     public DispatchRes triggerWorkflow(DispatchReq request) {
         log.info("Attempting to dispatch workflow for {}/{}. Workflow URL: https://github.com/{}/{}/actions",
-                GithubClient.OWNER, GithubClient.REPO, GithubClient.OWNER, GithubClient.REPO);
+                GithubApiClient.OWNER, GithubApiClient.REPO, GithubApiClient.OWNER, GithubApiClient.REPO);
 
         /*
           Terraform 환경변수를 GitHub Actions에서 다음과 같이 매핑하도록 주석으로 명시:
@@ -31,16 +31,16 @@ public class DeployService {
             TF_VAR_service_name: ${{ github.event.inputs.service_name }}
             TF_VAR_image_tag: ${{ github.event.inputs.image_tag }}
         */
-        githubClient.dispatchWorkflow(
+        githubApiClient.dispatchWorkflow(
                 request.inputs()
         );
 
-        log.info("Successfully dispatched workflow for repository: {}/{}", GithubClient.OWNER, GithubClient.REPO);
+        log.info("Successfully dispatched workflow for repository: {}/{}", GithubApiClient.OWNER, GithubApiClient.REPO);
 
         return new DispatchRes(
                 "Workflow dispatched successfully",
                 ZonedDateTime.now(ZoneId.of("UTC")),
-                GithubClient.REF
+                GithubApiClient.REF
         );
     }
     public DeployRes getDeploy(long id) {
