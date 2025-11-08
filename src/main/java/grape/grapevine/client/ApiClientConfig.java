@@ -13,8 +13,8 @@ import org.springframework.web.client.RestClient;
 @Slf4j
 public class ApiClientConfig {
     @Bean
-    @Qualifier("GitHubRestClient")
-    public RestClient kaKaoNaviRestClient() {
+    @Qualifier("GithubRestClient")
+    public RestClient githubRestClient() {
         return RestClient.builder()
             .requestInterceptor(loggingInterceptor())
             .build();
