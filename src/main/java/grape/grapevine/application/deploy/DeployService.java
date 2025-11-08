@@ -16,14 +16,9 @@ public class DeployService {
 
     private final GithubClient githubClient;
 
-    private static final String OWNER = "Softbank-hackathon-Grape";
-    private static final String REPO = "deploy-project";
-    private static final String WORKFLOW_ID = "deploy.yml";
-    private static final String REF = "main";
-
     public DispatchRes triggerWorkflow(DispatchReq request) {
         log.info("Attempting to dispatch workflow for {}/{}. Workflow URL: https://github.com/{}/{}/actions",
-                OWNER, REPO, OWNER, REPO);
+                GithubClient.OWNER, GithubClient.REPO, GithubClient.OWNER, GithubClient.REPO);
 
         /*
           Terraform 환경변수를 GitHub Actions에서 다음과 같이 매핑하도록 주석으로 명시:
@@ -33,19 +28,15 @@ public class DeployService {
             TF_VAR_image_tag: ${{ github.event.inputs.image_tag }}
         */
         githubClient.dispatchWorkflow(
-                OWNER,
-                REPO,
-                WORKFLOW_ID,
-                REF,
                 request.inputs()
         );
 
-        log.info("Successfully dispatched workflow for repository: {}/{}", OWNER, REPO);
+        log.info("Successfully dispatched workflow for repository: {}/{}", GithubClient.OWNER, GithubClient.REPO);
 
         return new DispatchRes(
                 "Workflow dispatched successfully",
                 ZonedDateTime.now(ZoneId.of("UTC")),
-                REF
+                GithubClient.REF
         );
     }
 }

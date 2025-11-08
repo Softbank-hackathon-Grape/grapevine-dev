@@ -15,6 +15,11 @@ public class GithubClient extends ApiClient {
     private final String token;
     private final String baseUrl;
 
+    public static final String OWNER = "Softbank-hackathon-Grape";
+    public static final String REPO = "deploy-project";
+    public static final String WORKFLOW_ID = "deploy.yml";
+    public static final String REF = "main";
+
     public GithubClient(@Qualifier("GithubRestClient") RestClient restClient,
                         @Value("${github.token}") String token,
                         @Value("${github.base-url:https://api.github.com}") String baseUrl) {
@@ -23,14 +28,14 @@ public class GithubClient extends ApiClient {
         this.baseUrl = baseUrl;
     }
 
-    public void dispatchWorkflow(String owner, String repo, String workflowId, String ref, Map<String, Object> inputs) {
+    public void dispatchWorkflow(Map<String, Object> inputs) {
         URI uri = UriComponentsBuilder.fromUriString(baseUrl)
                 .path("/repos/{owner}/{repo}/actions/workflows/{workflowId}/dispatches")
-                .buildAndExpand(owner, repo, workflowId)
+                .buildAndExpand(OWNER, REPO, WORKFLOW_ID)
                 .toUri();
 
         Map<String, Object> body = Map.of(
-                "ref", ref,
+                "ref", REF,
                 "inputs", inputs != null ? inputs : Map.of()
         );
 
