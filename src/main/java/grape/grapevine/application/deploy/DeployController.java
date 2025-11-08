@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Deploy", description = "배포 관련 API")
 @RestController
-@RequestMapping("/api/github")
+@RequestMapping("/api/deploy")
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "deploy", description = "배포 관련 API")
@@ -37,9 +37,8 @@ public class DeployController {
                     content = @Content(schema = @Schema(implementation = DispatchRes.class)))
     })
     @PostMapping("/dispatch")
-    public ResponseEntity<DispatchRes> dispatchWorkflow(@RequestBody DispatchReq request) {
-        DispatchRes response = deployService.triggerWorkflow(request);
-        return ResponseEntity.ok(response);
+    public BaseResponse<DispatchRes> dispatchWorkflow(@RequestBody DispatchReq request) {
+        return BaseResponse.success(deployService.triggerWorkflow(request));
     }
 
     @Operation(summary = "배포 상세 조회 API", description = "배포 상세 조회 API 입니다.")
