@@ -4,9 +4,16 @@ import grape.grapevine.application.user.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -17,6 +24,7 @@ import java.util.Date;
 public class JwtTokenProvider implements InitializingBean {
   private final String secret;
   private final long accessTokenValidityInMilliseconds;
+  private static final String AUTHORITIES_KEY = "auth";
   private SecretKey key;
   public JwtTokenProvider(
       @Value("${jwt.secret}") String secret,
@@ -41,6 +49,20 @@ public class JwtTokenProvider implements InitializingBean {
         .setExpiration(expiry)
         .signWith(key, SignatureAlgorithm.HS256)
         .compact();
+  }
+
+  public Authentication getAuthentication(String accessToken) {
+    Claims claims = getClaims(accessToken);
+
+    Collection<? extends GrantedAuthority> authorities =
+        Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+
+    org.springframework.security.core.userdetails.User principal = new org.springframework.security.core.userdetails.User(
+        claims.getSubject(), "", authorities);
+
+    return new UsernamePasswordAuthenticationToken(principal, accessToken, authorities);
   }
 
   public boolean validateToken(String token) {
